@@ -5,42 +5,34 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-	private static Database instance;
-	private String jdbcURL      = "jdbc:mysql://localhost:3306/ktmodule?useSSL=false";
-	private String jdbcUsername = "root";
-	private String jdbcPassword = "cclytnvkl1105..";
 
-	private Connection connection;
 
-	private Database(){
+	public static Connection CreateConnection(){
+		Connection conn= null;
+
+		String url="jdbc:mysql://localhost:3306/ktmodule";
+		String username="root";
+		String password="cclytn1105..";
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch(ClassNotFoundException e) {
-			System.out.println("driver mysql not found!");
+			conn = DriverManager.getConnection(url,username,password);
+			System.out.println("Connected successfully");
 		}
-
-		System.out.println("MySQL connect: " + jdbcURL);
-
-		try {
-			connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-			System.out.println("MySQL connection successful.");
-		} catch (SQLException e) {
+		catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("Stop Connect MySQL...");
 		}
+		catch(SQLException ex){
+			ex.printStackTrace();
+			System.out.println("Error connection " + ex);
+		}
+
+		// create connection
+		return conn;
+	}
+	public static void main(String[] args)
+	{
+		Database.CreateConnection();
 	}
 
-	public static Database getInstance() {
-		if (instance == null){
-			synchronized (Database.class){
-				instance = new Database();
-			}
-		}
-		return instance;
-	}
-
-	public Connection getConnection() {
-		return connection;
-	}
 }

@@ -13,7 +13,7 @@ public class CategoryDAO implements ICategory{
 	@Override
 	public List<Category> findAlL() {
 		List<Category> lists =new ArrayList<>();
-		Connection connection = Database.getInstance().getConnection();
+		Connection connection = Database.CreateConnection();
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM category");
@@ -30,7 +30,7 @@ public class CategoryDAO implements ICategory{
 
 	@Override
 	public Category findByID(int id) {
-		Connection connection = Database.getInstance().getConnection();
+		Connection connection = Database.CreateConnection();
 
 		try {
 			PreparedStatement statement = connection.prepareStatement("SELECT * FROM category WHERE id = ?");

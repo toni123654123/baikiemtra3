@@ -19,13 +19,18 @@ import java.util.List;
 
 @WebServlet(name = "add", urlPatterns = "/add")
 public class AddProductServlet extends HomeServlet {
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String name     = req.getParameter("name");
-		String price    = req.getParameter("price");
-		String total    = req.getParameter("total");
-		String color    = req.getParameter("color");
-		String desc     = req.getParameter("desc");
+		req.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+
+		String name = req.getParameter("name");
+		String price = req.getParameter("price");
+		String total = req.getParameter("total");
+		String color = req.getParameter("color");
+		String desc = req.getParameter("desc");
 		String category = req.getParameter("category");
 
 		Product product = new Product(name, Integer.valueOf(price), Integer.valueOf(total), color, desc, Integer.valueOf(category));
@@ -40,6 +45,9 @@ public class AddProductServlet extends HomeServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
 
 		ICategory iProduct = new CategoryDAO();
 		List<Category> lists = iProduct.findAlL();
@@ -47,5 +55,8 @@ public class AddProductServlet extends HomeServlet {
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher( "add.jsp");
 		dispatcher.forward(req, resp);
+
+
 	}
+
 }

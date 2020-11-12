@@ -24,6 +24,6 @@ public class DeleteProductServlet extends HomeServlet {
 		IProduct iProduct = new ProductDAO();
 		iProduct.delete(id);
 
-		resp.sendRedirect("/");
+		resp.sendRedirect("/home");
 	}
 }

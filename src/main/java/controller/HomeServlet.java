@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "home", urlPatterns = "/")
+@WebServlet(name = "home", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class HomeServlet extends HttpServlet {
 		}
 
 		req.setAttribute("lists", lists);
-		RequestDispatcher dispatcher = req.getRequestDispatcher( "index.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher( "list.jsp");
 		dispatcher.forward(req, resp);
 	}
 }

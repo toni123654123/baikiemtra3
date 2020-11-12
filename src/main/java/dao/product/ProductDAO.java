@@ -12,8 +12,7 @@ public class ProductDAO implements IProduct {
 
 	@Override
 	public Product findById(String id) {
-		Connection connection = Database.getInstance().getConnection();
-
+		Connection connection = Database.CreateConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement("SELECT * FROM product WHERE id = ?");
 			statement.setString(1, id);
@@ -30,7 +29,7 @@ public class ProductDAO implements IProduct {
 
 	@Override
 	public void insert(Product product) {
-		Connection connection = Database.getInstance().getConnection();
+		Connection connection = Database.CreateConnection();
 		String sql_insert = "INSERT INTO product (name, price, total,color,desc1,category) VALUE (?,?,?,?,?,?);";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql_insert);
@@ -48,7 +47,7 @@ public class ProductDAO implements IProduct {
 
 	@Override
 	public void update(Product product) {
-		Connection connection = Database.getInstance().getConnection();
+		Connection connection = Database.CreateConnection();
 		String sql_update = "UPDATE product SET name=?, price=?, total=?,color=?,desc1=?,category=? WHERE id=?";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql_update);
@@ -67,7 +66,7 @@ public class ProductDAO implements IProduct {
 
 	@Override
 	public void delete(String id) {
-		Connection connection = Database.getInstance().getConnection();
+		Connection connection = Database.CreateConnection();
 		String sql_delete = "DELETE FROM product WHERE id = ?";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql_delete);
@@ -80,48 +79,32 @@ public class ProductDAO implements IProduct {
 
 	@Override
 	public List<Product> findAll() {
-//		List<Product> lists =new ArrayList<>();
-//		Connection connection = Database.getInstance().getConnection();
-//
-//
-//		try {
-//			Statement statement = connection.createStatement();
-//			ResultSet resultSet = statement.executeQuery("SELECT * FROM product");
-//			while (resultSet.next()){
-//				Product product = new Product(resultSet);
-//				lists.add(product);
-//			}
-//			return lists;
-//		} catch (SQLException throwables) {
-//			throwables.printStackTrace();
-//		}
-//		return null;
-		List<Product> products = new ArrayList<>();
-		String sql = "SELECT * From product";
-		try (Connection connection = Database.getInstance().getConnection();) {
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			System.out.println(preparedStatement);
-			ResultSet rs = preparedStatement.executeQuery();
-			while (rs.next()) {
-//				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				int price = rs.getInt("price");
-				int total = rs.getInt("total");
-				String color  = rs.getString("color");
-				String desc1  = rs.getString("desc1");
-				int category  = rs.getInt("category");
-				products.add(new Product(name,price,total,color,desc1,category));
+		List<Product> lists = new ArrayList<>();
+		Connection connection = Database.CreateConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM product");
+			ResultSet resultSet= statement.executeQuery();
+			while (resultSet.next()) {
+				int id = resultSet.getInt("id");
+				String name = resultSet.getString("name");
+				int price = resultSet.getInt("price");
+				int total = resultSet.getInt("total");
+				String color = resultSet.getString("color");
+				String desc1 = resultSet.getString("desc1");
+				int category = resultSet.getInt("category");
+				lists.add(new Product(id, name, price, total,color,desc1,category));
 			}
+
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
 		}
-		return products;
+		return lists;
 	}
 
 	@Override
 	public List<Product> findName(String search) {
 		List<Product> lists =new ArrayList<>();
-		Connection connection = Database.getInstance().getConnection();
+		Connection connection = Database.CreateConnection();
 
 		try {
 			Statement statement = connection.createStatement();
