@@ -8,12 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
+
 <head>
 	<title>Add</title>
 </head>
 <body>
 
-<form method="post">
+<form method="post" action="/add">
 <center>
 	<h2>ADD PRODUCT</h2>
 	<a href="/home">BACK</a>
@@ -44,7 +45,7 @@
 				<td>
 					<select type="text" name="category">
 					<c:forEach items='${requestScope["lists"]}' var="category" >
-						<option value="${category.getId()}">${category.getName()}</option>
+						<option value="${category.id}">${category.name}</option>
 					</c:forEach>
 				</select>
 				</td>

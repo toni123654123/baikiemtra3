@@ -8,6 +8,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
+<style>
+    table {
+        background: #fff;
+    }
+    thead {
+        background: #d9d9d9;
+    }
+    tr {
+        padding: 6px;
+    }
+    td {
+        padding: 6px;
+    }
+
+    tr + tr {
+        border-top: 1px solid #d9d9d9;
+    }
+</style>
 <head>
     <title>Product manager</title>
 
